@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <h1>app.......</h1>
-    <van-button type="default">默认按钮</van-button>
+
     <router-view/>
   </div>
 </template>
 
-<style lang="less">
+<style scoped lang="less">
+.box{
+  width: 750px;
+  height: 200px;
+  background-color: pink;
+}
 </style>
