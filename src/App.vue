@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-
-    <router-view/>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
 <style scoped lang="less">
-.box{
+.box {
   width: 750px;
   height: 200px;
   background-color: pink;

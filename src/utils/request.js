@@ -1,10 +1,24 @@
 import axios from 'axios'
+import store from '@/store.js'
+import JSONBig from 'json-bigint'
 const request = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn'
 })
+// 文章id数据超限,需要使用json-bigint处理超限数据
+request.defaults.transformResponse = [function (data) {
+  try {
+    return JSONBig.parse(data)
+  } catch (error) {
+    return data
+  }
+}]
 // 请求拦截器
 request.interceptors.request.use(
   function (config) {
+    // 如果是非登录请求要设置请求头
+    const { user } = store.state
+    config.url !== '/app/v1_0/authorizations' &&
+      user && (config.headers.Authorization = `Bearer ${user.token}`)
     return config
   },
   function (error) {
@@ -22,4 +36,5 @@ request.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
 export default request
