@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <!-- vue自带的标签 -->
-    <keep-alive>
+    <!-- <keep-alive> -->
       <router-view></router-view>
-    </keep-alive>
+    <!-- </keep-alive> -->
     <!-- 底部-tabbar -->
     <van-tabbar v-model="activeIndex" active-color="#07c160" inactive-color="#000">
       <van-tabbar-item icon="home-o">标签</van-tabbar-item>

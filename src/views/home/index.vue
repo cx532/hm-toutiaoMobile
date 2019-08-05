@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <!-- 导航-navBar -->
     <van-nav-bar title="首页|搜索" fixed />
     <!-- 内容：标签页和列表 -->
@@ -195,6 +195,7 @@ export default {
 <style scoped lang='less'>
 .van-nav-bar {
   background-color: #1989fa;
+  height: 92px;
   .van-nav-bar__title {
     color: #ffffff;
   }
@@ -207,9 +208,15 @@ export default {
 .channel-tabs /deep/ .van-tabs__wrap {
   position: fixed;
   top: 92px; // 46 *2 -> 92
+  z-index: 20;
 }
 // 调整tabs的内容的位置
 .channel-tabs /deep/ .van-tabs__content {
-  margin-top: 192px;
+  margin-top: 92px;
+}
+// 调整tabs右按钮的位置
+.channel-tabs /deep/ .wap-nav {
+  position: fixed;
+  right: 0px;
 }
 </style>

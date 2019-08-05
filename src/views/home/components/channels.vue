@@ -27,7 +27,7 @@
           text="文字"
           @click="handleClickChannel(item,index)">
           <span class="text" :class="{active:activeIndex===index}">{{item.name}}</span>
-          <!-- <van-icon class="close-icon" name="close" /> -->
+          <van-icon v-if="isEdit===true&&index!==0" class="close-icon" name="close" />
         </van-grid-item>
       </van-grid>
     </div>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getAllChannels, resetUserChannels } from '@/api/channel.js'
+import { getAllChannels, resetUserChannels, delUserChannel } from '@/api/channel.js'
 import { mapState } from 'vuex'
 export default {
   name: 'HomeChannel',
@@ -100,12 +100,27 @@ export default {
       if (!this.isEdit) {
         this.channelChannel(item, index)
       } else {
-        this.delChannel()
+        if (index !== 0) {
+          this.delChannel(item, index)
+        } else {
+        }
       }
     },
     // 删除频道
-    delChannel (item, index) {
-
+    async delChannel (item, index) {
+      this.channels.splice(index, 1)
+      // 如果登录了
+      if (this.user) {
+        try {
+          // 发送请求
+          await delUserChannel(item.id)
+        } catch (error) {
+          console.dir(error)
+        }
+      } else {
+        // 本地删除,我们可以重新创建本地数据
+        window.localStorage.setItem('channels', JSON.stringify(this.channels))
+      }
     },
     // 进入频道
     channelChannel (item, index) {
