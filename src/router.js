@@ -27,6 +27,10 @@ export default new Router({
       // 路由的 ->组件的懒加载
       component: () =>
           import('@/views/search/search-result.vue')
+    },
+    { name: 'article',
+    path: '/article:articleId',
+    component: () => import('@/views/article')
     }
   ]
 })

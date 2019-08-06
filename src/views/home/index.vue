@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 导航-navBar -->
-    <van-nav-bar title="首页|搜索" fixed />
+    <van-nav-bar title="首页|搜索" fixed @click.native="$router.push({name:'search'})" />
     <!-- 内容：标签页和列表 -->
-    <van-tabs v-model="activeChannelIndex" class="channel-tabs">
+    <van-tabs @change="handleChangeTab" v-model="activeChannelIndex" class="channel-tabs">
       <!-- 自定义按钮 -->
       <div slot="nav-right" class="wap-nav" @click="showChannel">
         <van-icon name="wap-nav"></van-icon>
@@ -22,6 +22,7 @@
             @load="onLoad"
           >
             <van-cell
+            @click="$router.push({name:'article',params:{article_id:141314}})"
               v-for="item in item.articles"
               :key="item.art_id.toString()"
               :title="item.title"
@@ -55,6 +56,7 @@
     ></more-action>
     <!-- 频道管理 -->
     <channels
+    @success-delete="handleDeleteSuccess"
     :activeIndex="activeChannelIndex"
     :channels="channels"
     v-model="isShowPopChannel"
@@ -103,6 +105,15 @@ export default {
     }
   },
   methods: {
+    // 自己控制tab切换
+    handleChangeTab () {
+      this.onLoad()
+    },
+    handleDeleteSuccess () {
+      if (!this.activeChannel.articles.length) {
+        this.onLoad()
+      }
+    },
     showChannel () {
       this.isShowPopChannel = true
     },

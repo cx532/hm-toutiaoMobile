@@ -109,6 +109,8 @@ export default {
     // 删除频道
     async delChannel (item, index) {
       this.channels.splice(index, 1)
+      // 将删除成功返回给父组件，让其更新频道列表
+      this.$emit('success-delete')
       // 如果登录了
       if (this.user) {
         try {
