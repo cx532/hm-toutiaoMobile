@@ -1,14 +1,21 @@
 <template>
-  <div class="container">
-    <!-- vue自带的标签 -->
+  <div>
+
     <!-- <keep-alive> -->
-      <router-view></router-view>
+    <router-view></router-view>
     <!-- </keep-alive> -->
-    <!-- 底部-tabbar -->
-    <van-tabbar v-model="activeIndex" active-color="#07c160" inactive-color="#000">
-      <van-tabbar-item icon="home-o">标签</van-tabbar-item>
-      <van-tabbar-item icon="search">我的</van-tabbar-item>
+
+    <!--
+  首页
+  我的
+
+  route为true->开启了路由模式
+ -->
+    <van-tabbar active-color="#07c160" inactive-color="#000" v-model="activeIndex" route>
+      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
+      <van-tabbar-item icon="search" to="/mine">{{$store.state.user?'我的':'未登录'}}</van-tabbar-item>
     </van-tabbar>
+
   </div>
 </template>
 
@@ -17,11 +24,11 @@ export default {
   name: 'TabBarIndex',
   data () {
     return {
-      activeIndex: 0
+      activeIndex: 1
     }
   }
 }
 </script>
 
-<style scoped lang='less'>
+<style lang='less' scoped>
 </style>

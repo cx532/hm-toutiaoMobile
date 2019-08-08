@@ -14,9 +14,11 @@
       <!-- 更多操作 -->
       <more-action></more-action>
       <!-- 评论列表 -->
-      <comment-list></comment-list>
+      <comment-list :source="article_id"></comment-list>
       <!-- 回复列表 -->
-      <reply-list></reply-list>
+      <reply-list :article_id="article_id"></reply-list>
+      <!-- 发布评论 -->
+      <add-comment class="add-comment" :target="article_id"></add-comment>
     </div>
   </div>
 </template>
@@ -26,35 +28,37 @@ import AuthInfo from './components/auth-info.vue'
 import MoreAction from './components/more-action.vue'
 import CommentList from './components/comment-list.vue'
 import ReplyList from './components/reply-list.vue'
+import AddComment from './components/add-comment.vue'
 
-import {getArticleById} from '@/api/article.js'
+import { getArticleById } from '@/api/article.js'
 export default {
   name: 'ArticleIndex',
   components: {
     AuthInfo,
     MoreAction,
     CommentList,
-    ReplyList
+    ReplyList,
+    AddComment
   },
-  data() {
+  data () {
     return {
-        article:{}
+      article: {}
     }
   },
   computed: {
-      article_id(){
-          return this.$route.params.article_id
-      }       
+    article_id () {
+      return this.$route.params.article_id
+    }
   },
-  created() {
-      this.loadArticle()
+  created () {
+    this.loadArticle()
   },
   methods: {
-      async loadArticle(){
-          const data = await getArticleById(this.article_id)
-          console.log(data)
-          this.article = data
-      }
+    async loadArticle () {
+      const data = await getArticleById(this.article_id)
+      console.log(data)
+      this.article = data
+    }
   }
 }
 </script>
@@ -69,5 +73,10 @@ export default {
   .article-content {
     font-size: 20px;
   }
+}
+.add-comment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
 }
 </style>

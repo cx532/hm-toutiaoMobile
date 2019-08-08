@@ -15,6 +15,13 @@ export default new Router({
         path: '/',
         name: 'home',
         component: () => import('@/views/home')
+      },
+      {
+        path: '/mine',
+        name: 'mine',
+        // 路由的 ->组件的懒加载
+        component: () =>
+            import('@/views/mine')
       }]
     },
     { name: 'search',
@@ -29,8 +36,15 @@ export default new Router({
           import('@/views/search/search-result.vue')
     },
     { name: 'article',
-    path: '/article:articleId',
-    component: () => import('@/views/article')
+      path: '/article:articleId',
+      component: () => import('@/views/article')
+    },
+    {
+      name: 'user-profile',
+      path: '/user-profile',
+      // 路由的 ->组件的懒加载
+      component: () =>
+          import('@/views/user-profile')
     }
   ]
 })
