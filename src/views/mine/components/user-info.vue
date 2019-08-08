@@ -9,7 +9,7 @@
         <span class="count">{{ user.fans_count }}</span>
         <span class="count">{{ user.like_count }}</span>
          -->
-        <img class="avatar" src="" alt="显示头像">
+        <img class="avatar" :src="user.photo" alt="显示头像">
         <span class="title">{{user.name}}</span>
       </div>
     </van-cell>

@@ -17,12 +17,12 @@
       <van-cell is-link title="生日" :value="user.birthday" />
     </van-cell-group>
      <!-- 头向上传 -->
-     <upload-photo v-model="isUploadPhotoShow"></upload-photo>
+     <upload-photo v-model="isUploadPhotoShow" @upload-success="handleUploadSucess"></upload-photo>
   </div>
 </template>
 
 <script>
-import { getCurrentUserProfile, patchCurrentProfileInfo } from '@/api/user'
+import { getCurrentUserInfo, patchCurrentProfileInfo } from '@/api/user'
 import UploadPhoto from './components/upload-photo.vue'
 
 export default {
@@ -42,6 +42,9 @@ export default {
   },
 
   methods: {
+    handleUploadSucess (photoSrc) {
+      this.user.photo = photoSrc
+    },
     async handleSave () {
       await patchCurrentProfileInfo({
         name: 'HM74PH'
@@ -49,7 +52,7 @@ export default {
     },
     async loadUserProfile () {
       try {
-        const data = await getCurrentUserProfile()
+        const data = await getCurrentUserInfo()
         this.user = data
       } catch (err) {
         this.$toast.fail('加载用户信息失败')

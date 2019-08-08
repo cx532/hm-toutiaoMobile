@@ -80,3 +80,21 @@ export const patchCurrentProfileInfo = ({
     }
   })
 }
+// 获取用户个人资料
+// photo,file,否,头像
+
+export const updateUserPhoto = (name, file) => {
+  // Content-Type默认值 application/json->不用写
+  // 当 Content-Type要求的值 -> formdata,此时 把formdata类型的数据传递给data数据
+
+  const formdata = new FormData()
+
+  // formdata.append('要修改的字段名',数据值)
+  formdata.append(name, file)
+
+  return request({
+    method: 'PATCH',
+    url: `/app/v1_0/user/photo`,
+    data: formdata
+  })
+}
